@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head >
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>课堂考勤</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+	<link rel="stylesheet" href="../static/static/me.css">
+</head>
+
+<body>
+
+<!---导航--->
+<nav  class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+	<div class="ui container">
+		<div class="ui inverted secondary stackable menu">
+			<h2 class="ui teal header item">Class</h2>
+
+			<a href="#"  class="active m-item item m-mobile-hide " ><i class="mini home icon"></i>首页</a>
+			<a href="../../static/result.html" class="m-item item m-mobile-hide" ><i class="mini idea icon"></i>考勤结果</a>
+
+
+			<div class="right m-item m-mobile-hide menu">
+				<div class="ui dropdown  item">
+					<div class="text">
+						<img class="ui avatar image" src="http://heian99.top/usr/themes/luoli/img/gg.jpg">
+						刘老师
+					</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+		<i class="sidebar icon"></i>
+	</a>
+</nav>
+<div class="ui attached pointing menu">
+	<div class="ui container">
+
+	</div>
+</div>
+
+<br>
+<br>
+<br>
+<!--中间内容-->
+<div  class="m-container-small m-padded-tb-big">
+	<div class="ui container">
+		<div  class="ui secondary segment form">
+			<input type="hidden" name="page" >
+			<div class="inline fields">
+
+				<div class="field">
+					<div class="ui labeled action input">
+						<div class="ui type selection dropdown">
+							<input type="hidden" name="typeId">
+							<i class="dropdown icon"></i>
+							<div class="default text">课程</div>
+							<div class="menu">
+								<div class="item" data-value="1" >C程序设计</div>
+								<div class="item" data-value="2">web实训</div>
+								<div class="item" data-value="3">Java</div>
+								<div class="item" data-value="4">数据库实训</div>
+							</div>
+						</div>
+						<form class="form-signin" action="/login/jumpGetface">
+
+							<button class="ui fluid large teal submit button" id="faceloginpage" type="submit">开始考勤</button>
+
+						</form>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+		<div id="table-container">
+			<table th:fragment="blogList" class="ui compact teal table">
+				<thead>
+				<tr>
+					<th></th>
+					<th>课程名称</th>
+					<th>任课教师</th>
+					<th>地点</th>
+					<th>上课时间</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				<tr >
+					<td>1</td>
+					<td>C程序设计</td>
+					<td>刘老师</td>
+					<td>2N125</td>
+					<td>2019-12-02 09:45</td>
+
+				</tr>
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!--footer-->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+	<div class="ui center aligned container">
+		<div class="ui inverted divided stackable grid">
+			<div class="three wide column">
+				<div class="ui inverted link list">
+					<div class="item">
+						<img src="../static/images/pic01.jpg" th:src="@{/images/pic01.jpg}"  class="ui rounded image" alt="" style="width: 110px">
+					</div>
+				</div>
+			</div>
+			<div class="three wide column" >
+				<h4 class="ui inverted header m-text-thin m-text-spaced " >问题答疑</h4>
+				<div id="newblog-container">
+					<div class="ui inverted link list" th:fragment="newblogList">
+						<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">改进意见</a>
+						<!--/*-->
+						<a href="#" class="item m-text-thin">使用指南</a>
+						<a href="#" class="item m-text-thin">其他产品</a>
+						<!--*/-->
+					</div>
+				</div>
+			</div>
+			<div class="three wide column">
+				<h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item m-text-thin" th:text="#{index.email}">Email：12345@163.com</a>
+					<a href="#" class="item m-text-thin" th:text="#{index.qq}">QQ：12345678910</a>
+				</div>
+			</div>
+			<div class="seven wide column">
+				<h4 class="ui inverted header m-text-thin m-text-spaced ">公司问题</h4>
+				<p class="m-text-thin m-text-spaced m-opacity-mini" th:text="#{index.blogDescription}">课堂考勤系统，简单易操作，识别率高</p>
+			</div>
+		</div>
+		<div class="ui inverted section divider"></div>
+		<p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - <span th:text="${#dates.year(#dates.createNow())}">2020</span> 刘琦</p>
+	</div>
+
+</footer>
+
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+<script>
+	$('.menu.toggle').click(function () {
+		$('.m-item').toggleClass('m-mobile-hide');
+	});
+
+	$('.ui.dropdown').dropdown({
+		on : 'hover'
+	});
+
+</script>
+</body>
+</html>
